@@ -83,6 +83,7 @@ angular.module('ngVis', [])
             restrict: 'EA',
             transclude: false,
             scope: {
+                networkObjectHolder: '=',
                 data: '=',
                 options: '=',
                 events: '='
@@ -136,6 +137,10 @@ angular.module('ngVis', [])
 
                     // Create the graph2d object
                     network = new vis.Network(element[0], scope.data, scope.options);
+
+                    if (scope.networkObjectHolder) {
+                        scope.networkObjectHolder.network = network;
+                    }
 
                     // Attach an event handler if defined
                     angular.forEach(scope.events, function (callback, event) {
